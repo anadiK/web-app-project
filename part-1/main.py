@@ -111,10 +111,13 @@ def get_providers(limit: Optional[int] = 100, page: Optional[int] = 1):
         raise HTTPException(
             status_code=400, detail=f"Page supplied is greater than total number of pages. page = {page + 1} total_pages = {total_pages}")
 
+    # creates None initialized list of size 'limit'
     providers = [None] * limit
 
     print(f'start is {page * limit} and len of db is {len(in_memory_db)}')
     start = page * limit
+    
+    # enumerate over the dictionary items from 'start' until 'start + limit', excluding 'start + limit'
     for idx, (uuid, provider) in enumerate(islice(in_memory_db.items(), start, start+limit)):
         providers[idx] = HealthcareProviderDB(**provider, providerID=uuid)
 
