@@ -29,7 +29,7 @@ function readFormData() {
     formData["organization"] = document.getElementById("org").value;
     formData["location"] = document.getElementById("location").value;
     formData["address"] = document.getElementById("address").value;
-    // formData["active"] = document.getElementById("phone").value;
+    formData["active"] = document.getElementById("enabled").checked;
 
     return formData;
 }
@@ -164,6 +164,8 @@ function resetForm() {
     document.getElementById("org").value = "";
     document.getElementById("location").value = "";
     document.getElementById("address").value = "";
+    document.getElementById("enabled").checked = true;
+
     selectedRow = null;
 }
 
@@ -177,6 +179,8 @@ function onEdit(td) {
     document.getElementById("org").value = selectedRow.cells[6].innerHTML;
     document.getElementById("location").value = selectedRow.cells[7].innerHTML;
     document.getElementById("address").value = selectedRow.cells[8].innerHTML;
+    if (selectedRow.cells[9].innerHTML == "false")
+        document.getElementById("disabled").checked = true;
 }
 
 function updateRecord(dataToSend, uuid) {
