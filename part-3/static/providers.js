@@ -32,8 +32,8 @@ function updateLimit(value) {
 function readFormData() {
     let formData = {};
     formData["name"] = document.getElementById("name").value;
-    formData["qualification"] = [document.getElementById("qualification").value];
-    formData["specialty"] = [document.getElementById("speciality").value];
+    formData["qualification"] = document.getElementById("qualification").value;
+    formData["specialty"] = document.getElementById("speciality").value;
     formData["phone"] = document.getElementById("phone").value;
     formData["department"] = document.getElementById("department").value;
     formData["organization"] = document.getElementById("org").value;
@@ -200,6 +200,7 @@ function insertNewRecord(dataToSend) {
     .then(dataJson => {
         // console.log("FINAL ONE" + dataJson)
         // dataReceived = JSON.parse(dataJson)
+        showToast("Provider created successfully.")
     })
     .catch(err => {
         console.log(err.status, err.statusText);
@@ -269,6 +270,7 @@ function updateRecord(dataToSend, uuid) {
         })
         .then(dataJson => {
             updateExistingRow(dataJson);
+            showToast("Provider data updated successfully.")
         })
         .catch(err => {
             console.log(err.status, err.statusText);
@@ -297,7 +299,8 @@ function deleteRecord(uuid, row) {
             }
         })
         .then(dataJson => {
-            dataReceived = JSON.parse(dataJson);
+            // dataReceived = JSON.parse(dataJson);
+            showToast("Provider deleted successfully.")
         })
         .catch(err => {
             console.log(err.status, err.statusText);

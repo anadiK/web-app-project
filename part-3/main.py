@@ -125,7 +125,7 @@ def get_providers(limit: Optional[int] = 100, page: Optional[int] = 1):
     total_pages = calculate_total_pages(len(in_memory_db), limit)
 
     if total_pages == 0:
-        return []
+        return {"HealthcareProviders": [], "page": 0, "total_pages": 0}
 
     if page > total_pages - 1:
         raise HTTPException(
@@ -136,6 +136,7 @@ def get_providers(limit: Optional[int] = 100, page: Optional[int] = 1):
 
     print(f'start is {page * limit} and len of db is {len(in_memory_db)}')
     start = page * limit
+    # print(f'page is {page} and limit is {limit}')
 
     # enumerate over the dictionary items from 'start' until 'start + limit', excluding 'start + limit'
     for idx, (uuid, provider) in enumerate(islice(in_memory_db.items(), start, start+limit)):
